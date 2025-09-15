@@ -29,6 +29,12 @@
       "name": "avril",
       "email": "avrilkanas@gmail.com",
       "role": "Viewer"
+    },
+    {
+      "id": "75bf",
+      "name": "prueba 3",
+      "email": "prueba@gmail.com",
+      "role": "Admin"
     }
   ]
 }
