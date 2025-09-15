@@ -1,7 +1,7 @@
 # Header
 - **Título:** Los Pollos Hermanos  
-- **Subtítulo:** El sabor que hace que hasta Heisenberg se saque el sombrero.  
-
+- **Subtítulo:** 
+El sabor que hace que hasta Heisenberg se saque el sombrero.  
 # Entradas
 - **Subtítulo sección:** El primer paso a la adicción  
 
