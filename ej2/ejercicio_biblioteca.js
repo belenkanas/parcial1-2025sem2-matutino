@@ -16,7 +16,7 @@
 import bibliotecaData from './datos_biblioteca.json' assert { type: 'json' };
 
 // Creamos una copia de los datos para trabajar con ellos
-const biblioteca = { ...bibliotecaData };
+const biblioteca = {...bibliotecaData};
 
 /**
  * FUNCIONES A IMPLEMENTAR:
@@ -35,6 +35,31 @@ const biblioteca = { ...bibliotecaData };
  */
 function prestarLibro(idLibro, idEstudiante, fechaPrestamo) {
   // Tu código aquí
+  //Libro debe existir
+  if (!biblioteca.libros.some(libro => libro.id === idLibro)) {
+    return "Error: El libro no existe.";
+  }
+
+  //El estudiante debe existir
+  if (!biblioteca.estudiantes.some(est => est.id === idEstudiante)) {
+    return "Error: El estudiante no existe.";
+  }
+
+  //El libro debe estar disponible
+  const libro = biblioteca.libros.find(libro => libro.id === idLibro);
+  if (!libro.disponible) {
+    return "Error: El libro no está disponible.";
+  }
+  else {
+    libro.disponible = false;
+    libro.prestamos.push({
+      idLibro: idLibro,
+      idEstudiante: idEstudiante,
+      fechaPrestamo: fechaPrestamo,
+      fechaDevolucion: null
+    });
+    return true;
+  }
 }
 
 
@@ -50,18 +75,53 @@ function prestarLibro(idLibro, idEstudiante, fechaPrestamo) {
 function buscarLibros(criterios) {
   // Tu código aquí
   // Ejemplo de criterios: {titulo: "javascript", disponible: true}
+  return biblioteca.libros.filter(libro => {
+    for (let key in criterios) {
+      if (key === "titulo" || key === "autor" || key === "categoria") {
+        if (!libro[key].toLowerCase().includes(criterios[key].toLowerCase())) {
+          return false;
+        }
+      } else if (key === "disponible") {
+        if (libro[key] !== criterios[key]) {
+          return false;
+        }
+      }
+    }
+    return true;
+  });
 }
 
 
 // ALGUNOS CASOS DE PRUEBA
 // Descomentar para probar tu implementación
 
-/*
+
 console.log("Probando préstamo de libro:");
 console.log(prestarLibro(1, 3, "2025-09-13"));
 
 console.log("\nBuscando libros de programación disponibles:");
 console.log(buscarLibros({categoria: "Programación", disponible: true}));
 
-*/
+//Otras pruebas:
+//Pruebas de préstamo
+console.log("Prueba de segundo préstamo del mismo libro");
+console.log(prestarLibro(1, 2, "2025-09-14"));
 
+console.log("Prueba de préstamo de libro inexistente");
+console.log(prestarLibro(10, 2, "2025-09-14"));
+
+console.log("Prueba de préstamo a estudiante inexistente");
+console.log(prestarLibro(2, 10, "2025-09-14"));
+
+//Prueba de busqueda
+console.log("Prueba de búsqueda por autor");
+console.log(buscarLibros({autor: "John Doe"}));
+
+console.log("Prueba de búsqueda por título");
+console.log(buscarLibros({titulo: "Node.js"}));
+
+console.log("Prueba de búsqueda por disponibilidad");
+console.log(buscarLibros({disponible: true}));
+
+console.log("Prueba de búsqueda sin criterios (debería devolver todos los libros)");
+console.log(buscarLibros({}));
