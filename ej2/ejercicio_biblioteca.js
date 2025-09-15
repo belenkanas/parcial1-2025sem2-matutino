@@ -16,7 +16,7 @@
 import bibliotecaData from './datos_biblioteca.json' assert { type: 'json' };
 
 // Creamos una copia de los datos para trabajar con ellos
-const biblioteca = {...bibliotecaData};
+const biblioteca = {...bibliotecaData} ;
 
 /**
  * FUNCIONES A IMPLEMENTAR:
@@ -125,3 +125,5 @@ console.log(buscarLibros({disponible: true}));
 
 console.log("Prueba de búsqueda sin criterios (debería devolver todos los libros)");
 console.log(buscarLibros({}));
+
+console.log((buscarLibros({titulo: "JavaScript Avanzado"}))); //Devuelve que la disponibilidad está en false y que la fecha de préstamo es la indicada en la primer prueba.
