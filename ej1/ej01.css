@@ -4,3 +4,106 @@
   font-weight: 700;
   font-style: normal;
 }
+
+header{
+  background-color: rgba(255, 208, 0, 0.889);
+  color: rgb(150, 21, 1);
+  vertical-align: middle;
+  font-family: 'Rufina', serif;
+}
+
+header h1{
+  font-size: 50px;
+  margin: 0.2em;
+}
+
+header h2{
+  font-size: 15px;
+  margin: 0.2em;
+}
+
+#header img{
+  height: 100px;
+  margin: 0.2em;
+  display: flex;
+  vertical-align: top;
+}
+
+.menu{
+  color: black;
+  font-family: 'Rufina', serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.menu h2{
+  font-size: medium;
+  text-align: center;
+  justify-content: center;
+  display: block;
+}
+
+.menu h3{
+  font-size: small;
+  text-align: center;
+  justify-content: center;
+  display: block;
+}
+
+.menu img{
+  height: 50px;
+  margin: 0.2em;
+  display: flex;
+  vertical-align: top;
+}
+
+.menu ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.menu ul li{
+  font-size: 20px;
+  display: inline;
+}
+
+.menu ul li p{
+  font-size: 10px;
+}
+
+#Entradas img
+{
+  height: 200px;
+  margin: 0.2em;
+  display: flex;
+  vertical-align: top;
+  float: right;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+#PlatosPrincipales img
+{
+  height: 200px;
+  margin: 0.2em;
+  display: flex;
+  vertical-align: top;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+#PostresBebidas img
+{
+  height: 200px;
+  margin: 0.2em;
+  display: flex;
+  vertical-align: top;
+  float: right;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
