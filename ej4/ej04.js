@@ -1,14 +1,14 @@
 const API_USERS = "http://localhost:3000/users";
 
 //Mostrar todos los usuarios en la página
-async function showUsers(listaUsuarios){
+async function showUsers(){
     try{
         const response = await fetch(API_USERS);
         const USERS = await response.json();
 
         const usersList = document.getElementById("users");
         let listUsers = "";
-        for (const user of listaUsuarios) {
+        for (const user of USERS) {
             listUsers += 
             `<li>${user.name} - ${user.role} - ${user.email}
             <button id="promote">Promote</button>
@@ -23,7 +23,7 @@ async function showUsers(listaUsuarios){
     
 }
 
-document.addEventListener('DOMContentLoaded', showUsers(USERS.users));
+document.addEventListener('DOMContentLoaded', showUsers());
 
 //Agregar usuario a la lista
 async function addUser(name, email, role){
@@ -32,14 +32,14 @@ async function addUser(name, email, role){
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'},
-            body: JSON.stringify({ name, email, role })
+            body: JSON.stringify({name, email, role })
             })
         if (response.ok) {
             throw new Error("Error en la solicitud");
         }
         const newUser = await response.json();
         USERS.users.push(newUser);
-        showUsers(USERS.users);
+        showUsers();
     }
     catch(error){
         console.error("Error al agregar el usuario:", error);    
@@ -83,7 +83,7 @@ async function promoteUser() {
         const index = USERS.users.findIndex(u => u.id === updatedUser.id);
         if (index !== -1) {
             USERS.users[index] = updatedUser;
-            showUsers(USERS.users);
+            showUsers();
         }
     }catch(error){
         console.error("Error al promover el usuario:", error);
@@ -106,7 +106,7 @@ async function demoteUser() {
         const index = USERS.users.findIndex(u => u.id === updatedUser.id);
         if (index !== -1) {
             USERS.users[index] = updatedUser;
-            showUsers(USERS.users);
+            showUsers();
         }   
     }catch(error){
         console.error("Error al degradar el usuario:", error);
@@ -115,7 +115,7 @@ async function demoteUser() {
 
 async function deleteUser() {
     try{
-        const response = await fetch(`${API_USERS}/${name}`, {
+        const response = await fetch(`${API_USERS}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'}
