@@ -10,7 +10,7 @@ async function showUsers(){
         let listUsers = "";
         for (const user of USERS) {
             listUsers += 
-            `<li>${user.name} - ${user.role} - ${user.email}
+            `<li id="${user.id}">${user.name} - ${user.role} - ${user.email}
             <button id="promote">Promote</button>
             <button id"demote">Demote</button>
             <button id="delete">Delete</button>
@@ -113,21 +113,27 @@ async function demoteUser() {
     }
 }
 
-async function deleteUser() {
+async function deleteUser(userID) {
     try{
-        const response = await fetch(`${API_USERS}`, {
+        const response = await fetch(`${API_USERS}/${userID}`);
+        if (response.ok) {
+            throw new Error("Error en la solicitud");
+        }
+        const user = await response.json();
+        if (!user) {
+            console.log("Usuario no encontrado.");
+            return;
+        }
+        const responseDelete = await fetch(`${API_USERS}/${userID}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'}
             });
-        if (response.ok) {
+        if (responseDelete.ok) {
             throw new Error("Error en la solicitud");
         }
-        const USERS = await response.json();
-        if (USERS.users.length === 0) {
-            console.log("No hay usuarios para eliminar.");
-            return;} 
-        
+        USERS.users = USERS.users.filter(u => u.id !== userID);
+        showUsers();        
     }catch(error){
         console.error("Error al eliminar el usuario:", error);
     }
@@ -135,5 +141,6 @@ async function deleteUser() {
 
 const deleteButton = document.getElementById("delete");
 deleteButton.addEventListener("click", () => {
-    deleteUser();
+    const userID = document.getElementById(`${user.Id}`).value;
+    deleteUser(userID);
 });
